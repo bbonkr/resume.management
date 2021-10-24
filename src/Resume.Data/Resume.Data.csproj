@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\kr.bbon.Data\src\kr.bbon.Data\kr.bbon.Data.csproj" />
+  </ItemGroup>
+
+</Project>
