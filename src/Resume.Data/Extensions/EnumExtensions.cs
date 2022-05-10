@@ -8,20 +8,19 @@ namespace Resume.Data
 {
     public static class EnumExtensions
     {
-        public static string GetStringValue<T>(this T enumearble)
+        public static string GetStringValue<T>(this T enumerable)
         {
-            var stringVaueAttribute= enumearble
+            var stringValueAttribute = enumerable
                 .GetType()
                 .GetCustomAttributes(true)
-                .Where(x => x.GetType() == typeof(StringValueAttribute))
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.GetType() == typeof(StringValueAttribute));
 
-            if (stringVaueAttribute != null)
+            if (stringValueAttribute != null)
             {
-                var propertyInfo = stringVaueAttribute.GetType().GetProperty(nameof(StringValueAttribute.StringValue));
+                var propertyInfo = stringValueAttribute.GetType().GetProperty(nameof(StringValueAttribute.StringValue));
                 if (propertyInfo != null)
                 {
-                    var propertyValue = propertyInfo.GetValue(stringVaueAttribute);
+                    var propertyValue = propertyInfo.GetValue(stringValueAttribute);
                     if (propertyValue != null)
                     {
                         return propertyValue.ToString();
@@ -29,7 +28,7 @@ namespace Resume.Data
                 }
             }
 
-            return enumearble.ToString();
+            return enumerable.ToString();
         }
     }
 }
