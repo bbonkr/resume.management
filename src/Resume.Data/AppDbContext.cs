@@ -3,7 +3,7 @@ using System;
 
 namespace Resume.Data
 {
-    public class AppDbContext : kr.bbon.Data.AppDbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : base(dbContextOptions)
         {

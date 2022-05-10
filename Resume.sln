@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resume.Domains", "src\Resum
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resume.Data.Mysql", "src\Resume.Data.Mysql\Resume.Data.Mysql.csproj", "{827917E8-8116-4857-8A8F-2A82D059402A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kr.bbon.Data", "..\kr.bbon.Data\src\kr.bbon.Data\kr.bbon.Data.csproj", "{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,18 +69,6 @@ Global
 		{827917E8-8116-4857-8A8F-2A82D059402A}.Release|x64.Build.0 = Release|Any CPU
 		{827917E8-8116-4857-8A8F-2A82D059402A}.Release|x86.ActiveCfg = Release|Any CPU
 		{827917E8-8116-4857-8A8F-2A82D059402A}.Release|x86.Build.0 = Release|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Debug|x64.Build.0 = Debug|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Debug|x86.Build.0 = Debug|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Release|x64.ActiveCfg = Release|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Release|x64.Build.0 = Release|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Release|x86.ActiveCfg = Release|Any CPU
-		{95BE85C8-8FCB-45ED-ADC9-1058E9E2FFEF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

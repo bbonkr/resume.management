@@ -1,11 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\kr.bbon.Data\src\kr.bbon.Data\kr.bbon.Data.csproj" />
+    <PackageReference Include="kr.bbon.Data" Version="1.0.0" />
+    <PackageReference Include="kr.bbon.Data.Abstractions" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities" />
+    <Folder Include="EntityTypeConfigurations" />
   </ItemGroup>
 
 </Project>

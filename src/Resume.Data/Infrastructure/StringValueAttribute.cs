@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Resume.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
