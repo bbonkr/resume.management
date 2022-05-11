@@ -2,15 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="kr.bbon.Data" Version="1.0.0" />
     <PackageReference Include="kr.bbon.Data.Abstractions" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Resume.Entities\Resume.Entities.csproj" />
   </ItemGroup>
 
 </Project>
