@@ -6,6 +6,9 @@ public class UserSns : EntityBase
 {
     public SnsName ServiceName { get; set; }
     
+    /// <summary>
+    /// Account name
+    /// </summary>
     public string Username { get; set; }
     
     public Guid UserId { get; set; }

@@ -8,5 +8,8 @@ public class Tag : EntityBase<Guid>
     
     public Guid UserId { get; set; }
     
-    public User User { get; set; }
+    public virtual User User { get; set; }
+    
+    public virtual ICollection<ContentTag> ContentTags { get; set; }
+    public virtual ICollection<Content> Contents { get; set; }
 }

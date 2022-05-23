@@ -48,4 +48,6 @@ public class User : EntityBase<Guid>
     public virtual ICollection<Skill> Skills { get; set; }
     
     public virtual ICollection<SkillGroup> SkillGroups { get; set; }
+
+    public virtual ICollection<Tag> Tags { get; set; }
 }

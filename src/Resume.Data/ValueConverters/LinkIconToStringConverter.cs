@@ -13,3 +13,4 @@ public class LinkIconToStringConverter : ValueConverter<LinkIcon, string>
     {
     }
 }
+

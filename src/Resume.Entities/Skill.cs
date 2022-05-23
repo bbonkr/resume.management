@@ -8,9 +8,9 @@ public class Skill : EntityBase<Guid>
 
     public string Description { get; set; }
 
-    public double Score { get; set; }
+    public double Score { get; set; } = 0;
 
-    public double ScoreMax { get; set; }
+    public double ScoreMax { get; set; } = 100;
 
     public Guid SkillGroupId { get; set; }
 

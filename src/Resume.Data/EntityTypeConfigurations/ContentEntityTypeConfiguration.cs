@@ -39,5 +39,20 @@ public class ContentEntityTypeConfiguration : EntityTypeConfigurationBase<Conten
         builder.HasMany(x => x.Links)
             .WithOne(x => x.Content)
             .HasForeignKey(x => x.ContentId);
+
+        builder.HasMany(x => x.Tags)
+            .WithMany(x => x.Contents)
+            .UsingEntity<ContentTag>(
+                j => j.HasOne(x => x.Tag)
+                    .WithMany(x => x.ContentTags)
+                    .HasForeignKey(x => x.TagId),
+                j => j.HasOne(x => x.Content)
+                    .WithMany(x => x.ContentTags)
+                    .HasForeignKey(x => x.ContentId),
+                j => j.HasKey(x => new
+                {
+                    x.ContentId, x.TagId
+                }));
+
     }
 }

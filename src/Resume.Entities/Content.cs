@@ -25,4 +25,9 @@ public class Content : EntityBase<Guid>
     public Guid UserId { get; set; }
     
     public User User { get; set; }
+    
+    public virtual  ICollection<ContentTag> ContentTags { get; set; }
+    
+    public virtual  ICollection<Tag> Tags { get; set; }
 }
+

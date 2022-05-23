@@ -6,8 +6,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resume.Data
-{
+namespace Resume.Data;
+
     public class StringValueAttribute : Attribute
     {
         public StringValueAttribute(string stringValue)
@@ -17,4 +17,4 @@ namespace Resume.Data
 
         public string StringValue { get; }
     }
-}
+
