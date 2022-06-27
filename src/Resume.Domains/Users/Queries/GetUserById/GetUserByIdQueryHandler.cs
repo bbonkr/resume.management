@@ -2,36 +2,42 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Resume.DataStore.Abstractions;
+
 using Resume.Domains.Users.Models;
 using Resume.Entities;
-using kr.bbon.Data.Abstractions;
-using kr.bbon.Data.Abstractions.Specifications;
 using AutoMapper;
+using Resume.Data;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using kr.bbon.Core;
 
 namespace Resume.Domains.Users.Queries.GetUserById;
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserModel>
 {
-    public GetUserByIdQueryHandler(IAppDataStore dataStore, IMapper mapper, ILogger<GetUserByIdQueryHandler> logger)
+    public GetUserByIdQueryHandler(AppDbContext dbContext, IMapper mapper, ILogger<GetUserByIdQueryHandler> logger)
     {
-        _dataStore = dataStore;
+        _dbContext = dbContext;
         _mapper = mapper;
         _logger = logger;
     }
 
-    public async Task<UserModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+    public async Task<UserModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken = default)
     {
-        var specification = new SpecificationBuilder<User, UserModel>()
-            .AddCriteria(x => x.Id == request.Id)
-            .Build();
+        var model = await _dbContext.Users
+            .Where(x => x.Id == request.Id)
+            .Select(x => _mapper.Map<UserModel>(x))
+            .FirstOrDefaultAsync(cancellationToken);
 
-        var model = await _dataStore.UserRepository.GetOneAsync(specification);
+        if (model == null)
+        {
+            throw new ApiException(System.Net.HttpStatusCode.NotFound);
+        }
 
         return model;
     }
 
-    private readonly IAppDataStore _dataStore;
+    private readonly AppDbContext _dbContext;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
 }

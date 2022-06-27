@@ -24,7 +24,6 @@ using Resume.App.Infrastructure.Filters;
 using Resume.App.Infrastructure.Identity;
 using Resume.App.Infrastructure.Options;
 using Resume.Data;
-using Resume.DataStore.Extensions.DependencyInjection;
 using MediatR;
 using Resume.App;
 
@@ -74,7 +73,6 @@ builder.Configuration.GetSection(IdentityServer4Options.Name).Bind(identityServe
 var corsConfiguration = new CorsConfiguration();
 builder.Configuration.GetSection(CorsConfiguration.Name).Bind(corsConfiguration);
 
-
 builder.Services.Configure<MvcOptions>(options =>
 {
     options.CacheProfiles.Add("File-Response-Cache", new CacheProfile
@@ -98,7 +96,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     });
 });
 
-builder.Services.AddAppDataStore();
+
 builder.Services.AddMediatR(assemblies.ToArray());
 
 builder.Services

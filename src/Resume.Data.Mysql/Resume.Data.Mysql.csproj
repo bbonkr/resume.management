@@ -4,4 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Resume.Data\Resume.Data.csproj" />
+  </ItemGroup>
 </Project>
