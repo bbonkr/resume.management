@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="kr.bbon.Data.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="kr.bbon.Data.Abstractions" Version="1.1.1" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\Resume.Entities\Resume.Entities.csproj" />
+  </ItemGroup>
 </Project>

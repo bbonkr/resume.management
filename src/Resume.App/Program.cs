@@ -23,13 +23,14 @@ using Resume.App.Extensions.DependencyInjection;
 using Resume.App.Infrastructure.Filters;
 using Resume.App.Infrastructure.Identity;
 using Resume.App.Infrastructure.Options;
+using Resume.Data;
+using Resume.DataStore.Extensions.DependencyInjection;
+using MediatR;
+using Resume.App;
 
-
-var defaultCorsPolicy = "default-cors";
-
-
-var assemblies = new List<Assembly> {
-    // typeof(Bing.Wallpaper.Mediator.PlaceHolder).Assembly,
+var assemblies = new List<Assembly>
+{
+     typeof(Resume.Domains.PlaceHolder).Assembly,
 };
 
 var builder = WebApplication.CreateBuilder(args);
@@ -89,26 +90,21 @@ builder.Services.AddHttpContextAccessor();
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
-// builder.Services.AddDbContext<DefaultDatabaseContext>(options =>
-// {
-//     options.UseSqlServer(connectionString, sqlServerOptions =>
-//     {
-//         sqlServerOptions.MigrationsAssembly("Bing.Wallpaper.Data.SqlServer");
-//     });
-// });
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(connectionString, sqlServerOptions =>
+    {
+        sqlServerOptions.MigrationsAssembly("Result.Data.SqlServer");
+    });
+});
 
-// builder.Services.AddDomainService();
-
-// builder.Services.AddBingImageCollectingJob(builder.Configuration);
-
-
+builder.Services.AddAppDataStore();
+builder.Services.AddMediatR(assemblies.ToArray());
 
 builder.Services
     .AddControllersWithViews(options =>
     {
         options.Filters.Add<ApiExceptionHandlerWithLoggingFilter>();
-        
-        
     })
     .ConfigureApiBehaviorOptions(options =>
     {
@@ -140,8 +136,7 @@ builder.Services.AddCors(options =>
 {
     var origins = corsConfiguration.GetOrigins();
 
-
-    options.AddPolicy(defaultCorsPolicy, policy =>
+    options.AddPolicy(Constants.DEFAULT_CORS_POLICY, policy =>
     {
         policy.SetIsOriginAllowedToAllowWildcardSubdomains();
         if (corsConfiguration.AllowsAnyHeaders)
@@ -201,12 +196,10 @@ app.UseRequestLogging();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseCors(defaultCorsPolicy);
+app.UseCors(Constants.DEFAULT_CORS_POLICY);
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-
 
 app.UseEndpoints(endpoints =>
 {
