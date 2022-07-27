@@ -90,9 +90,10 @@ var connectionString = builder.Configuration.GetConnectionString("Default");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
+    // Sql server
     options.UseSqlServer(connectionString, sqlServerOptions =>
     {
-        sqlServerOptions.MigrationsAssembly("Result.Data.SqlServer");
+        sqlServerOptions.MigrationsAssembly(typeof(Resume.Data.SqlServer.Placeholder).Assembly.FullName);
     });
 });
 
@@ -130,6 +131,8 @@ builder.Services.AddValidatorsFromAssemblies(assemblies);
 
 builder.Services.AddForwardedHeaders();
 builder.Services.AddValidatorIntercepter();
+builder.Services.AddAutoMapper(assemblies.ToArray());
+
 builder.Services.AddCors(options =>
 {
     var origins = corsConfiguration.GetOrigins();
@@ -175,7 +178,7 @@ builder.Services.AddSwaggerGenWithIdentityServer(defaultVersion, identityServer4
 // Configure
 var app = builder.Build();
 
-// app.UseDatabaseMigration<DefaultDatabaseContext>();
+app.UseDatabaseMigration<AppDbContext>();
 
 // app.UseCustomExceptionHanlder();
 

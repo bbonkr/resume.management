@@ -7,10 +7,14 @@
   <ItemGroup>
     <PackageReference Include="kr.bbon.Data" Version="1.1.1" />
     <PackageReference Include="kr.bbon.Data.Abstractions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Resume.Entities\Resume.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Microsoft.EntityFrameworkCore.Relational" />
+  </ItemGroup>
 </Project>
