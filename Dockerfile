@@ -28,8 +28,6 @@ COPY . .
 # Fix dotnet restore
 # RUN curl -o /usr/local/share/ca-certificates/verisign.crt -SsL https://crt.sh/?d=1039083 && update-ca-certificates
 
-# Build client
-RUN cd src/Bing.Wallpaper/ClientApp && npm ci && npm run build
 
 # RUN dotnet publish
 RUN cd src/Resume.App && dotnet restore && dotnet publish -c Release -o /app/out \
