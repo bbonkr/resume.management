@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="kr.bbon.Data.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="kr.bbon.Data.Abstractions" Version="1.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Resume.Entities\Resume.Entities.csproj" />
+  </ItemGroup>
+</Project>
