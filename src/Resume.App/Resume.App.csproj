@@ -8,7 +8,6 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-		<Version>1.0.0</Version>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
@@ -28,7 +27,7 @@
 		<ProjectReference Include="..\Resume.Domains\Resume.Domains.csproj" />
 		<ProjectReference Include="..\Resume.Data.Mysql\Resume.Data.Mysql.csproj" />
 		<ProjectReference Include="..\Resume.Data.SqlServer\Resume.Data.SqlServer.csproj">
-		  <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+			<GlobalPropertiesToRemove></GlobalPropertiesToRemove>
 		</ProjectReference>
 	</ItemGroup>
 </Project>
