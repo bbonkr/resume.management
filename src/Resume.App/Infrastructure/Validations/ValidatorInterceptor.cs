@@ -1,9 +1,9 @@
 using System.Linq;
-using System.Net;
+using System.Text.Json;
+
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
-using kr.bbon.Core;
 using kr.bbon.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,20 +14,11 @@ public class ValidatorInterceptor : IValidatorInterceptor
     public ValidationResult AfterAspNetValidation(ActionContext actionContext, IValidationContext validationContext,
         ValidationResult result)
     {
-        if (!result.IsValid)
+        if (result.Errors.Any())
         {
-            var statusCode = HttpStatusCode.BadRequest;
+            var failures = result.Errors.Select(x => new ValidationFailure(x.PropertyName, Serialize(x)));
 
-            var error = new ErrorModel("Request payload is invalid",
-                Code: statusCode.ToString(),
-                InnerErrors: result.Errors.Select(x => new ErrorModel
-                (
-                    x.ErrorMessage,
-                    Code: x.ErrorCode,
-                    Reference: x.PropertyName
-                )).ToList());
-
-            throw new ApiException(statusCode, error);
+            return new ValidationResult(failures);
         }
 
         return result;
@@ -36,5 +27,12 @@ public class ValidatorInterceptor : IValidatorInterceptor
     public IValidationContext BeforeAspNetValidation(ActionContext actionContext, IValidationContext commonContext)
     {
         return commonContext;
+    }
+
+
+    private static string Serialize(ValidationFailure failure)
+    {
+        var model = new ErrorModel(failure.ErrorMessage, failure.ErrorCode, failure.PropertyName);
+        return JsonSerializer.Serialize(model);
     }
 }

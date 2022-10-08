@@ -21,6 +21,8 @@ using Microsoft.OpenApi.Models;
 using Resume.App.Infrastructure.Identity;
 using Resume.App.Infrastructure.Swagger;
 using Resume.App.Infrastructure.Validations;
+using FluentValidation;
+using System.Collections.Generic;
 
 namespace Resume.App.Extensions.DependencyInjection;
 
@@ -123,6 +125,13 @@ public static class ServiceCollectionExtensions
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddValidators(this IServiceCollection services, IEnumerable<Assembly> assemblies, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
+    {
+        services.AddValidatorsFromAssemblies(assemblies, serviceLifetime);
 
         return services;
     }

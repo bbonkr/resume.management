@@ -26,6 +26,9 @@ using Resume.App.Infrastructure.Options;
 using Resume.Data;
 using MediatR;
 using Resume.App;
+using kr.bbon.Core.Models;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
 var assemblies = new List<Assembly>
 {
@@ -105,33 +108,54 @@ builder.Services
     {
         options.Filters.Add<ApiExceptionHandlerWithLoggingFilter>();
     })
-    .ConfigureApiBehaviorOptions(options =>
-    {
-        options.InvalidModelStateResponseFactory = context =>
-            new BadRequestObjectResult(context.ModelState)
-            {
-                ContentTypes =
+     .ConfigureApiBehaviorOptions(options =>
+     {
+         options.InvalidModelStateResponseFactory = context =>
+         {
+             PathString path = context.HttpContext.Request.Path;
+             string method = context.HttpContext.Request.Method;
+             string displayName = context.ActionDescriptor.DisplayName ?? string.Empty;
+
+             var errors = context.ModelState.Values
+                 .SelectMany(x => x.Errors)
+                 .Select(error => JsonSerializer.Deserialize<ErrorModel>(error.ErrorMessage));
+
+             var responseStatusCode = StatusCodes.Status400BadRequest;
+             var responseModel = kr.bbon.AspNetCore.Models.ApiResponseModelFactory.Create(responseStatusCode, "Payload is invalid", errors);
+
+             responseModel.Path = path.ToString();
+             responseModel.Method = method;
+             responseModel.Instance = displayName;
+
+             context.HttpContext.Response.StatusCode = responseStatusCode;
+
+             return new ObjectResult(responseModel) {
+                 ContentTypes =
                 {
                     // using static System.Net.Mime.MediaTypeNames;
                     MediaTypeNames.Application.Json,
                     MediaTypeNames.Application.Xml
                 }
-            };
-    })
+             };
+         };
+     })
     .ConfigureDefaultJsonOptions()
-    .AddXmlSerializerFormatters()
-    .AddFluentValidation(options =>
-    {
-        options.RegisterValidatorsFromAssemblies(assemblies);
-    });
+    .AddXmlSerializerFormatters();
+
+//.AddFluentValidation(options =>
+//{
+//    options.RegisterValidatorsFromAssemblies(assemblies);
+//});
 
 builder.Services.AddIdentityServerAuthentication();
 
-builder.Services.AddValidatorsFromAssemblies(assemblies);
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidators(assemblies);
+builder.Services.AddValidatorIntercepter();
+
+builder.Services.AddAutoMapper(assemblies.ToArray());
 
 builder.Services.AddForwardedHeaders();
-builder.Services.AddValidatorIntercepter();
-builder.Services.AddAutoMapper(assemblies.ToArray());
 
 builder.Services.AddCors(options =>
 {
