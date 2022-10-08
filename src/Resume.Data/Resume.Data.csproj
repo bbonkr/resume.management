@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="kr.bbon.Data" Version="1.1.1" />
     <PackageReference Include="kr.bbon.Data.Abstractions" Version="1.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
   </ItemGroup>
 
   <ItemGroup>
