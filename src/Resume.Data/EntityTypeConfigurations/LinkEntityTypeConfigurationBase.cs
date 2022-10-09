@@ -1,4 +1,4 @@
-using kr.bbon.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Resume.Data.ValueConverters;
@@ -6,13 +6,21 @@ using Resume.Entities;
 
 namespace Resume.Data.EntityTypeConfigurations;
 
-public abstract class LinkEntityTypeConfigurationBase<TLinkEntity> : EntityTypeConfigurationBase<TLinkEntity> 
+public abstract class LinkEntityTypeConfigurationBase<TLinkEntity> : IEntityTypeConfiguration<TLinkEntity>
     where TLinkEntity : Link
 {
     protected abstract void ConfigureSpecific(EntityTypeBuilder<TLinkEntity> builder);
-    
-    public override void ConfigureEntity(EntityTypeBuilder<TLinkEntity> builder)
+
+    public void Configure(EntityTypeBuilder<TLinkEntity> builder)
     {
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+            .IsRequired()
+            .HasConversion<string>()
+            .HasMaxLength(36)
+            .ValueGeneratedOnAdd();
+
         builder.Property(x => x.Href)
             .IsRequired()
             .HasMaxLength(1000);
@@ -32,8 +40,9 @@ public abstract class LinkEntityTypeConfigurationBase<TLinkEntity> : EntityTypeC
             .HasDefaultValue(true);
         builder.Property(x => x.UserId)
             .IsRequired()
-            .HasConversion<string>();
-        
+            .HasConversion<string>()
+            .HasMaxLength(36);
+
         ConfigureSpecific(builder);
     }
 }

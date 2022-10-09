@@ -1,14 +1,21 @@
-using kr.bbon.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Resume.Entities;
 
 namespace Resume.Data.EntityTypeConfigurations;
 
-public class UserEntityTypeConfiguration : EntityTypeConfigurationBase<User>
+public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
 {
-    public override void ConfigureEntity(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+            .IsRequired()
+            .HasConversion<string>()
+            .HasMaxLength(36)
+            .ValueGeneratedOnAdd();
         builder.Property(x => x.UserId)
             .IsRequired()
             .HasConversion<string>()
@@ -50,11 +57,11 @@ public class UserEntityTypeConfiguration : EntityTypeConfigurationBase<User>
         builder.HasMany(x => x.Files)
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId);
-        
+
         builder.HasMany(x => x.Contents)
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId);
-        
+
         builder.HasMany(x => x.Skills)
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId);
