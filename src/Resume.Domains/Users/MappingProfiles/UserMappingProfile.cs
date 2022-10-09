@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using Resume.Domains.Users.Commands.CreateUser;
 using Resume.Domains.Users.Models;
 using Resume.Entities;
 
@@ -10,6 +11,8 @@ public class UserMappingProfile : Profile
     public UserMappingProfile()
     {
         CreateMap<User, UserModel>();
+
+        CreateMap<CreateUserCommand, User>();
     }
 }
 

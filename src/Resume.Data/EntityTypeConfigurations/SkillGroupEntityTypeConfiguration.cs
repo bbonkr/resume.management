@@ -31,7 +31,8 @@ public class SkillGroupEntityTypeConfiguration : IEntityTypeConfiguration<SkillG
 
         builder.HasMany(x => x.Skills)
             .WithOne(x => x.Group)
-            .HasForeignKey(x => x.SkillGroupId);
+            .HasForeignKey(x => x.SkillGroupId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 
 }

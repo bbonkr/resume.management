@@ -13,31 +13,26 @@ using kr.bbon.Core;
 
 namespace Resume.Domains.Users.Queries.GetUserById;
 
-public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserModel>
+public class GetUserByIdQueryHandler : RequestHandlerBase<GetUserByIdQuery, UserModel>
 {
     public GetUserByIdQueryHandler(AppDbContext dbContext, IMapper mapper, ILogger<GetUserByIdQueryHandler> logger)
+        : base(dbContext, mapper, logger)
     {
-        _dbContext = dbContext;
-        _mapper = mapper;
-        _logger = logger;
+
     }
 
-    public async Task<UserModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken = default)
+    public override async Task<UserModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken = default)
     {
-        var model = await _dbContext.Users
+        var model = await _DbContext.Users
             .Where(x => x.Id == request.Id)
-            .Select(x => _mapper.Map<UserModel>(x))
+            .Select(x => _Mapper.Map<UserModel>(x))
             .FirstOrDefaultAsync(cancellationToken);
 
         if (model == null)
         {
-            throw new ApiException(System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(System.Net.HttpStatusCode.NotFound, "Could not find a user");
         }
 
         return model;
     }
-
-    private readonly AppDbContext _dbContext;
-    private readonly IMapper _mapper;
-    private readonly ILogger _logger;
 }

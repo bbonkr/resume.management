@@ -69,6 +69,8 @@ builder.Host.UseSerilog(
 builder.Configuration.AddEnvironmentVariables();
 builder.Services.ConfigureAppOptions();
 
+builder.Services.AddLogging();
+
 // options
 var identityServer4Options = new IdentityServer4Options();
 builder.Configuration.GetSection(IdentityServer4Options.Name).Bind(identityServer4Options);
@@ -129,7 +131,8 @@ builder.Services
 
              context.HttpContext.Response.StatusCode = responseStatusCode;
 
-             return new ObjectResult(responseModel) {
+             return new ObjectResult(responseModel)
+             {
                  ContentTypes =
                 {
                     // using static System.Net.Mime.MediaTypeNames;
