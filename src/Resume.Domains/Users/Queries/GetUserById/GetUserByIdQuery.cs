@@ -6,5 +6,10 @@ namespace Resume.Domains.Users.Queries.GetUserById;
 
 public class GetUserByIdQuery : IRequest<UserModel>
 {
-    public Guid Id { get; set; }
+    public GetUserByIdQuery(Guid id)
+    {
+        Id = id;
+    }
+
+    public Guid Id { get; private set; }
 }

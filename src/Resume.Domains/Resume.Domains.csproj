@@ -13,4 +13,16 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Resume.Data\Resume.Data.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Users\Queries\GetUserByUsername\" />
+	  <None Remove="Users\Commands\" />
+	  <None Remove="Users\Commands\CreateUser\" />
+	  <None Remove="Infrastructure\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Users\Queries\GetUserByUsername\" />
+	  <Folder Include="Users\Commands\" />
+	  <Folder Include="Users\Commands\CreateUser\" />
+	  <Folder Include="Infrastructure\" />
+	</ItemGroup>
 </Project>
