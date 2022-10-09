@@ -1,9 +1,11 @@
-using kr.bbon.Data.Abstractions.Entities;
+using System;
 
 namespace Resume.Entities;
 
-public class Skill : EntityBase<Guid>
+public class Skill
 {
+    public Guid Id { get; set; }
+
     public string Title { get; set; }
 
     public string Description { get; set; }

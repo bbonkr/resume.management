@@ -1,9 +1,11 @@
-using kr.bbon.Data.Abstractions.Entities;
+using System;
 
 namespace Resume.Entities;
 
-public abstract class Media : EntityBase<Guid>
+public abstract class Media
 {
+    public Guid Id { get; set; }
+
     public string Uri { get; set; }
 
     public string Name { get; set; }
@@ -12,8 +14,8 @@ public abstract class Media : EntityBase<Guid>
     /// Content type of media
     /// </summary>
     public string ContentType { get; set; } = "application/octet-stream";
-    
+
     public Guid UserId { get; set; }
-    
+
     public User User { get; set; }
 }

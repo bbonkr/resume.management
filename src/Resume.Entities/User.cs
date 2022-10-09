@@ -1,9 +1,11 @@
-﻿using kr.bbon.Data.Abstractions.Entities;
+﻿using System;
 
 namespace Resume.Entities;
 
-public class User : EntityBase<Guid>
+public class User
 {
+    public Guid Id { get; set; }
+
     /// <summary>
     /// User id from identity server
     /// </summary>
@@ -42,11 +44,11 @@ public class User : EntityBase<Guid>
     public virtual ICollection<UserLink> Links { get; set; }
 
     public virtual ICollection<UserMedia> Files { get; set; }
-    
+
     public virtual ICollection<Content> Contents { get; set; }
-    
+
     public virtual ICollection<Skill> Skills { get; set; }
-    
+
     public virtual ICollection<SkillGroup> SkillGroups { get; set; }
 
     public virtual ICollection<Tag> Tags { get; set; }

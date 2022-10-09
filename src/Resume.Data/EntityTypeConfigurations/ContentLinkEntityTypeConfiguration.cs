@@ -9,6 +9,7 @@ public class ContentLinkEntityTypeConfiguration : LinkEntityTypeConfigurationBas
     {
         builder.Property(x => x.ContentId)
             .IsRequired()
-            .HasConversion<string>();
+            .HasConversion<string>()
+            .HasMaxLength(36);
     }
 }
