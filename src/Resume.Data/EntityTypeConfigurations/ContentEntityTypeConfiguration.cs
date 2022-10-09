@@ -41,21 +41,25 @@ public class ContentEntityTypeConfiguration : IEntityTypeConfiguration<Content>
 
         builder.HasMany(x => x.Files)
             .WithOne(x => x.Content)
-            .HasForeignKey(x => x.ContentId);
+            .HasForeignKey(x => x.ContentId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(x => x.Links)
             .WithOne(x => x.Content)
-            .HasForeignKey(x => x.ContentId);
+            .HasForeignKey(x => x.ContentId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(x => x.Tags)
             .WithMany(x => x.Contents)
             .UsingEntity<ContentTag>(
                 j => j.HasOne(x => x.Tag)
                     .WithMany(x => x.ContentTags)
-                    .HasForeignKey(x => x.TagId),
+                    .HasForeignKey(x => x.TagId)
+                    .OnDelete(DeleteBehavior.NoAction),
                 j => j.HasOne(x => x.Content)
                     .WithMany(x => x.ContentTags)
-                    .HasForeignKey(x => x.ContentId),
+                    .HasForeignKey(x => x.ContentId)
+                    .OnDelete(DeleteBehavior.NoAction),
                 j => j.HasKey(x => new
                 {
                     x.ContentId,
