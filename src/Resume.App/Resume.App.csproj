@@ -25,9 +25,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Resume.Domains\Resume.Domains.csproj" />
-		<ProjectReference Include="..\Resume.Data.Mysql\Resume.Data.Mysql.csproj" />
-		<ProjectReference Include="..\Resume.Data.SqlServer\Resume.Data.SqlServer.csproj">
-			<GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-		</ProjectReference>
+		<ProjectReference Include="..\Resume.Data.SqlServer\Resume.Data.SqlServer.csproj" />
 	</ItemGroup>
 </Project>

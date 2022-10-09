@@ -1,4 +1,3 @@
-using kr.bbon.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Resume.Data.ValueConverters;
@@ -6,13 +5,21 @@ using Resume.Entities;
 
 namespace Resume.Data.EntityTypeConfigurations;
 
-public class ContentEntityTypeConfiguration : EntityTypeConfigurationBase<Content>
+public class ContentEntityTypeConfiguration : IEntityTypeConfiguration<Content>
 {
-    public override void ConfigureEntity(EntityTypeBuilder<Content> builder)
+    public void Configure(EntityTypeBuilder<Content> builder)
     {
-        builder.Property(x => x.Title)
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
             .IsRequired()
-            .HasMaxLength(400);
+            .HasConversion<string>()
+            .HasMaxLength(36)
+            .ValueGeneratedOnAdd();
+
+        builder.Property(x => x.Title)
+         .IsRequired()
+         .HasMaxLength(400);
         builder.Property(x => x.Subtitle)
             .IsRequired(false)
             .HasMaxLength(400);
@@ -51,8 +58,8 @@ public class ContentEntityTypeConfiguration : EntityTypeConfigurationBase<Conten
                     .HasForeignKey(x => x.ContentId),
                 j => j.HasKey(x => new
                 {
-                    x.ContentId, x.TagId
+                    x.ContentId,
+                    x.TagId
                 }));
-
     }
 }

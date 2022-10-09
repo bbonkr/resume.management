@@ -9,6 +9,7 @@ public class ContentMediaEntityTypeConfiguration : MediaEntityTypeConfigurationB
     {
         builder.Property(x => x.ContentId)
             .IsRequired()
-            .HasConversion<string>();
+            .HasConversion<string>()
+            .HasMaxLength(36);
     }
 }
