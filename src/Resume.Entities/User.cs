@@ -4,52 +4,33 @@ namespace Resume.Entities;
 
 public class User
 {
-    public Guid Id { get; set; }
-
     /// <summary>
     /// User id from identity server
     /// </summary>
-    public Guid UserId { get; set; }
-
-    public string Name { get; set; }
-
-    public string Username { get; set; }
-
-    // public string Photo { get; set; }
-
-    public string SiteTitle { get; set; }
-
-    public string SiteTitleEn { get; set; }
-
-    public string NameEn { get; set; }
-
-    public string Url { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
-    /// Home section title
+    /// Unique
     /// </summary>
-    public string Title { get; set; }
+    public string Username { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Home section subtitle
-    /// </summary>
-    public string Subtitle { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    public string Intro { get; set; }
+    public virtual ICollection<UserSns> Sns { get; set; } = new HashSet<UserSns>();
 
-    public string Bio { get; set; }
+    public virtual ICollection<UserLink> Links { get; set; } = new HashSet<UserLink>();
 
-    public virtual ICollection<UserSns> Sns { get; set; }
+    public virtual ICollection<UserMedia> Files { get; set; } = new HashSet<UserMedia>();
 
-    public virtual ICollection<UserLink> Links { get; set; }
+    public virtual ICollection<Content> Contents { get; set; } = new HashSet<Content>();
 
-    public virtual ICollection<UserMedia> Files { get; set; }
+    public virtual ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
 
-    public virtual ICollection<Content> Contents { get; set; }
+    public virtual ICollection<SkillGroup> SkillGroups { get; set; } = new HashSet<SkillGroup>();
 
-    public virtual ICollection<Skill> Skills { get; set; }
+    public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
 
-    public virtual ICollection<SkillGroup> SkillGroups { get; set; }
+    public virtual ICollection<ContentGroup> ContentGroups { get; set; } = new HashSet<ContentGroup>();
 
-    public virtual ICollection<Tag> Tags { get; set; }
+    public virtual UserMetadata? Metadata { get; set; }
 }

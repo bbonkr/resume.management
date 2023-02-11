@@ -7,9 +7,9 @@ public class UserSns
     /// <summary>
     /// Account name
     /// </summary>
-    public string Username { get; set; }
+    public string Username { get; set; } = string.Empty;
 
     public Guid UserId { get; set; }
 
-    public User User { get; set; }
+    public User? User { get; set; }
 }

@@ -33,6 +33,8 @@ public class SkillGroupEntityTypeConfiguration : IEntityTypeConfiguration<SkillG
             .WithOne(x => x.Group)
             .HasForeignKey(x => x.SkillGroupId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.ToTable("SkillGroups");
     }
 
 }

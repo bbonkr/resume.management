@@ -41,5 +41,7 @@ public class SkillEntityTypeConfiguration : IEntityTypeConfiguration<Skill>
             .IsRequired()
             .HasConversion<string>()
             .HasMaxLength(36);
+
+        builder.ToTable("Skills");
     }
 }

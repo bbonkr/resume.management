@@ -6,9 +6,9 @@ public class Skill
 {
     public Guid Id { get; set; }
 
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public double Score { get; set; } = 0;
 
@@ -16,9 +16,9 @@ public class Skill
 
     public Guid SkillGroupId { get; set; }
 
-    public virtual SkillGroup Group { get; set; }
+    public virtual SkillGroup? Group { get; set; }
 
     public Guid UserId { get; set; }
 
-    public User User { get; set; }
+    public virtual User? User { get; set; }
 }

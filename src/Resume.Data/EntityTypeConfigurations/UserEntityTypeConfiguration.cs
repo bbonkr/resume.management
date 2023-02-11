@@ -15,36 +15,14 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasConversion<string>()
             .HasMaxLength(36)
-            .ValueGeneratedOnAdd();
-        builder.Property(x => x.UserId)
-            .IsRequired()
-            .HasConversion<string>()
             .HasComment("Identity server user identifier");
+
         builder.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(200);
         builder.Property(x => x.Username)
             .IsRequired()
             .HasMaxLength(200);
-        builder.Property(x => x.SiteTitle)
-            .IsRequired()
-            .HasMaxLength(200);
-        builder.Property(x => x.SiteTitleEn)
-            .IsRequired(false)
-            .HasMaxLength(400);
-        builder.Property(x => x.NameEn)
-            .IsRequired(false)
-            .HasMaxLength(400);
-        builder.Property(x => x.Url)
-            .IsRequired()
-            .HasMaxLength(400);
-        builder.Property(x => x.Title)
-            .IsRequired()
-            .HasMaxLength(200);
-        builder.Property(x => x.Subtitle)
-            .HasMaxLength(200);
-        builder.Property(x => x.Intro);
-        builder.Property(x => x.Bio);
 
         builder.HasMany(x => x.Sns)
             .WithOne(x => x.User)
@@ -80,5 +58,10 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasOne(x => x.Metadata)
+            .WithOne(x => x.User)
+            .HasForeignKey<UserMetadata>(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -35,9 +35,9 @@ public abstract class LinkEntityTypeConfigurationBase<TLinkEntity> : IEntityType
         builder.Property(x => x.Title)
             .IsRequired()
             .HasMaxLength(1000);
-        builder.Property(x => x.Enabled)
+        builder.Property(x => x.IsHidden)
             .IsRequired()
-            .HasDefaultValue(true);
+            .HasDefaultValue(false);
         builder.Property(x => x.UserId)
             .IsRequired()
             .HasConversion<string>()

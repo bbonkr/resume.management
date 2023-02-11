@@ -1,10 +1,13 @@
 namespace Resume.Entities;
 
-public enum ContentGroup
+public class ContentGroup
 {
-    Education,
-    Work,
-    Project,
-    Portfolio,
-    Certificate,
+    public Guid Id { get; set; }
+
+    public string Title { get; set; } = string.Empty;
+
+    public Guid UserId { get; set; }
+
+    public User? User { get; set; }
 }
+

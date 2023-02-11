@@ -9,6 +9,8 @@ public class ContentEntityTypeConfiguration : IEntityTypeConfiguration<Content>
 {
     public void Configure(EntityTypeBuilder<Content> builder)
     {
+        builder.ToTable("Contents");
+
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
@@ -18,8 +20,9 @@ public class ContentEntityTypeConfiguration : IEntityTypeConfiguration<Content>
             .ValueGeneratedOnAdd();
 
         builder.Property(x => x.Title)
-         .IsRequired()
-         .HasMaxLength(400);
+            .IsRequired()
+            .HasMaxLength(400);
+
         builder.Property(x => x.Subtitle)
             .IsRequired(false)
             .HasMaxLength(400);
@@ -31,13 +34,17 @@ public class ContentEntityTypeConfiguration : IEntityTypeConfiguration<Content>
             .HasMaxLength(100);
         builder.Property(x => x.Description)
             .IsRequired(false);
-        builder.Property(x => x.Group)
+        builder.Property(x => x.ContentGroupId)
             .IsRequired()
-            .HasMaxLength(100)
-            .HasConversion<ContentGroupToStringConverter>();
-        builder.Property(x => x.Enabled)
+            .HasConversion<string>();
+
+        builder.Property(x => x.UserId)
             .IsRequired()
-            .HasDefaultValue(true);
+            .HasConversion<string>();
+
+        builder.Property(x => x.IsHidden)
+            .IsRequired()
+            .HasDefaultValue(false);
 
         builder.HasMany(x => x.Files)
             .WithOne(x => x.Content)
@@ -60,10 +67,15 @@ public class ContentEntityTypeConfiguration : IEntityTypeConfiguration<Content>
                     .WithMany(x => x.ContentTags)
                     .HasForeignKey(x => x.ContentId)
                     .OnDelete(DeleteBehavior.NoAction),
-                j => j.HasKey(x => new
+                j =>
                 {
-                    x.ContentId,
-                    x.TagId
-                }));
+                    j.HasKey(x => new
+                    {
+                        x.ContentId,
+                        x.TagId
+                    });
+
+                    j.ToTable("ContentTags");
+                });
     }
 }

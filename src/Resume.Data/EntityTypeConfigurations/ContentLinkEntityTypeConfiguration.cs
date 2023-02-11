@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Resume.Entities;
 
@@ -11,5 +12,7 @@ public class ContentLinkEntityTypeConfiguration : LinkEntityTypeConfigurationBas
             .IsRequired()
             .HasConversion<string>()
             .HasMaxLength(36);
+
+        builder.ToTable("ContentLinks");
     }
 }

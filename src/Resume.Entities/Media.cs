@@ -6,9 +6,9 @@ public abstract class Media
 {
     public Guid Id { get; set; }
 
-    public string Uri { get; set; }
+    public string Uri { get; set; } = string.Empty;
 
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Content type of media
@@ -17,5 +17,5 @@ public abstract class Media
 
     public Guid UserId { get; set; }
 
-    public User User { get; set; }
+    public virtual User? User { get; set; }
 }

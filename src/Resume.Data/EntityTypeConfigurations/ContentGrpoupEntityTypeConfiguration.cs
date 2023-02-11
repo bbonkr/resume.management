@@ -1,13 +1,12 @@
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Resume.Entities;
 
 namespace Resume.Data.EntityTypeConfigurations;
 
-public class TagEntityTypeConfiguration : IEntityTypeConfiguration<Tag>
+public class ContentGrpoupEntityTypeConfiguration : IEntityTypeConfiguration<ContentGroup>
 {
-    public void Configure(EntityTypeBuilder<Tag> builder)
+    public void Configure(EntityTypeBuilder<ContentGroup> builder)
     {
         builder.HasKey(x => x.Id);
 
@@ -25,6 +24,11 @@ public class TagEntityTypeConfiguration : IEntityTypeConfiguration<Tag>
             .HasConversion<string>()
             .HasMaxLength(36);
 
-        builder.ToTable("Tags");
+        builder.HasOne(x => x.User)
+            .WithMany(x => x.ContentGroups)
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.ToTable("ContentGroups");
     }
 }
